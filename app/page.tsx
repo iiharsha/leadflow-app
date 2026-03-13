@@ -2,8 +2,6 @@ import { EnvVarWarning } from "@/components/env-var-warning";
 import { AuthButton } from "@/components/auth-button";
 import { Hero } from "@/components/hero";
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { ConnectSupabaseSteps } from "@/components/tutorial/connect-supabase-steps";
-import { SignUpUserSteps } from "@/components/tutorial/sign-up-user-steps";
 import { hasEnvVars } from "@/lib/utils";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -19,7 +17,7 @@ export default function Home() {
 
               <Link
                 href="/"
-                className="text-lg font-bold tracking-tight text-foreground"
+                className="text-2xl font-bold tracking-tight text-foreground"
               >
                 LeadFlow
               </Link>
@@ -34,10 +32,9 @@ export default function Home() {
           </div>
         </nav>
         <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
-          <Hero />
-          <main className="text-center gap-6 px-4">
-            <h2 className="font-medium text-xl mb-4">Sign Up or Login to continue</h2>
-          </main>
+          <Suspense>
+            <Hero />
+          </Suspense>
         </div>
 
 

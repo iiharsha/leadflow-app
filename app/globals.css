@@ -29,6 +29,14 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+
+    /* CRM-specific tokens */
+    --status-new: 220 65% 45%;
+    --status-contacted: 35 90% 50%;
+    --status-qualified: 160 60% 40%;
+    --status-lost: 0 60% 55%;
+    --status-won: 145 65% 38%;
+    --status-follow-up: 280 55% 55%;
   }
   .dark {
     --background: 0 0% 3.9%;

@@ -2,16 +2,12 @@ import { ThemeSwitcher } from "@/components/theme-switcher";
 import { Plus, Users } from "lucide-react";
 import Header from "@/components/nav-bar";
 
-const navItems = [
-  { to: '/', label: 'Leads', icon: Users },
-  { to: '/leads/new', label: 'Leads New', icon: Plus },
-]
-
 export default function LeadsLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <div className="min-h-screen">
       <Header />

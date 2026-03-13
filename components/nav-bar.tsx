@@ -7,7 +7,7 @@ import { AuthButton } from './auth-button'
 import { EnvVarWarning } from './env-var-warning'
 
 const navItems = [
-  { to: '/', label: 'Leads', icon: Users },
+  { to: '/leads', label: 'Leads', icon: Users },
   { to: '/leads/new', label: 'New Lead', icon: Plus },
 ];
 

@@ -2,7 +2,7 @@ import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
-import { ListLeads } from "./ListLeads";
+import { ListLeads, ListLeadsSkeleton } from "./ListLeads";
 
 async function LeadsTable() {
   const supabase = await createClient();
@@ -28,7 +28,7 @@ export default function LeadsPage() {
           Export CSV
         </Button>
       </div>
-      <Suspense>
+      <Suspense fallback={<ListLeadsSkeleton />}>
         <LeadsTable />
       </Suspense>
     </div>

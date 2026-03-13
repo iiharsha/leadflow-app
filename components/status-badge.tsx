@@ -1,4 +1,3 @@
-
 import type { LeadStatus } from '@/types/crm';
 import { STATUS_LABELS } from '@/types/crm';
 import { cn } from '@/lib/utils';
