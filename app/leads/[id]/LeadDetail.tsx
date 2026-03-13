@@ -28,6 +28,8 @@ import {
 import { format, formatDistanceToNow } from 'date-fns';
 import { toast } from 'sonner';
 import { StatusBadge } from '@/components/status-badge';
+import { createSupabaseBrowserClient } from '@/lib/supabase/client';
+import { addNote, updateLeadStatus } from './actions';
 
 type Lead = {
   id: string;
@@ -58,56 +60,51 @@ export default function LeadDetail({ lead, initialNotes }: Props) {
   const [isPendingNote, startNoteTransition] = useTransition();
   const [isPendingStatus, startStatusTransition] = useTransition();
 
-  const handleAddNote = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!noteText.trim()) return;
+  const supabase = createSupabaseBrowserClient();
 
-    const text = noteText.trim();
-    setNoteText('');
+  const handleAddNote = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!noteText.trim()) return
+
+    const text = noteText.trim()
+    setNoteText('')
 
     startNoteTransition(async () => {
       try {
-        const res = await fetch(`/api/leads/${lead.id}/notes`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ note_text: text }),
-        });
+        const newNote = await addNote(lead.id, text)
 
-        if (!res.ok) throw new Error('Failed to add note');
+        setNotes((prev) => [newNote, ...prev])
 
-        const newNote: Note = await res.json();
-        setNotes((prev) => [newNote, ...prev]);
-        toast.success('Note added');
-        router.refresh();
-      } catch {
-        toast.error('Failed to add note');
-        setNoteText(text); // restore if failed
+        toast.success('Note added')
+        router.refresh()
+      } catch (err) {
+        console.error(err)
+        toast.error('Failed to add note')
+        setNoteText(text)
       }
-    });
-  };
+    })
+  }
 
   const handleStatusChange = (newStatus: string) => {
-    const prev = currentStatus;
-    setCurrentStatus(newStatus);
+    const prev = currentStatus
+    setCurrentStatus(newStatus)
 
     startStatusTransition(async () => {
       try {
-        const res = await fetch(`/api/leads/${lead.id}`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ status: newStatus }),
-        });
+        await updateLeadStatus(lead.id, newStatus)
 
-        if (!res.ok) throw new Error('Failed to update status');
+        toast.success(
+          `Status updated to ${STATUS_LABELS[newStatus as LeadStatus]}`
+        )
 
-        toast.success(`Status updated to ${STATUS_LABELS[newStatus as LeadStatus]}`);
-        router.refresh();
-      } catch {
-        setCurrentStatus(prev); // rollback optimistic update
-        toast.error('Failed to update status');
+        router.refresh()
+      } catch (err) {
+        console.error(err)
+        setCurrentStatus(prev)
+        toast.error('Failed to update status')
       }
-    });
-  };
+    })
+  }
 
   const formatNoteTime = (dateStr: string) => {
     const date = new Date(dateStr);
