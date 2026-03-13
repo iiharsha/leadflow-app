@@ -1,109 +1,304 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# Leads Management CRM
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+A lightweight CRM built with Next.js and Supabase for managing leads, tracking their status, and recording interaction notes. Designed for simple lead ingestion through secure API endpoints and an internal dashboard for managing the pipeline.
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+---
 
-## Features
+# Tech Stack
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Proxy
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Password-based authentication block installed via the [Supabase UI Library](https://supabase.com/ui/docs/nextjs/password-based-auth)
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+- Next.js 16 (App Router)
+- Supabase (PostgreSQL + Auth)
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
 
-## Demo
+---
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+# Features
 
-## Deploy to Vercel
+- Lead management dashboard
+- Create and track leads
+- Update lead status
+- Add interaction notes
+- Timeline view of all lead interactions
+- Secure API ingestion for external systems
+- Supabase Row Level Security support
+- Server Actions for mutations
 
-Vercel deployment will guide you through creating a Supabase account and project.
+---
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+# Project Setup
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
+## 1. Clone the repository
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+```bash
+git clone <repo-url>
+cd leads-management-app
+````
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+---
 
-## Clone and run locally
+## 2. Install dependencies
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+```bash
+npm install
+```
 
-2. Create a Next.js app using the Supabase Starter template npx command
+---
 
-   ```bash
-   npx create-next-app --example with-supabase with-supabase-app
-   ```
+## 3. Configure environment variables
 
-   ```bash
-   yarn create next-app --example with-supabase with-supabase-app
-   ```
+Create a `.env.local` file.
 
-   ```bash
-   pnpm create next-app --example with-supabase with-supabase-app
-   ```
+```
+NEXT_PUBLIC_SUPABASE_URL=https://sgtsjocdrzjvphdrtpak.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_VMcmaXZEr3pEdUhwXA_1MA_RItLgWgG
 
-3. Use `cd` to change into the app's directory
+API_SECRET_KEY=my_secret_key
+SUPABSE_SERVICE_ROLE_KEY=your-supabase-service-role-key
+```
 
-   ```bash
-   cd with-supabase-app
-   ```
+You can obtain the API_SECRET_KEY and SUPABSE_SERVICE_ROLE_KEY from me :)
 
-4. Rename `.env.example` to `.env.local` and update the following:
+---
 
-  ```env
-  NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=[INSERT SUPABASE PROJECT API PUBLISHABLE OR ANON KEY]
-  ```
-  > [!NOTE]
-  > This example uses `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, which refers to Supabase's new **publishable** key format.
-  > Both legacy **anon** keys and new **publishable** keys can be used with this variable name during the transition period. Supabase's dashboard may show `NEXT_PUBLIC_SUPABASE_ANON_KEY`; its value can be used in this example.
-  > See the [full announcement](https://github.com/orgs/supabase/discussions/29260) for more information.
+## 4. Run the development server
 
-  Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
+```bash
+npm run dev
+```
 
-5. You can now run the Next.js local development server:
+Application will run at:
 
-   ```bash
-   npm run dev
-   ```
+```
+http://localhost:3000
+```
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+---
 
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
+# Authentication
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+The dashboard requires a logged-in user. Supabase authentication is used to protect internal routes such as:
 
-## Feedback and issues
+```
+/leads/*
+```
 
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
+Unauthenticated users are redirected to the login page.
 
-## More Supabase examples
+---
 
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+# External API Endpoints
+
+The application exposes ingestion endpoints under:
+
+```
+/api/*
+```
+
+These endpoints allow external systems (marketing tools, forms, automation systems, etc.) to push leads into the CRM.
+
+All endpoints require an **API key**.
+
+---
+
+# API Authentication
+
+Requests must include the following header:
+
+```
+x-api-key: <your-api-key>
+```
+
+Example:
+
+```
+x-api-key: my_secret_key
+```
+
+The server validates this key against the environment variable:
+
+```
+API_SECRET_KEY
+```
+
+Requests without the correct key will be rejected.
+
+---
+
+# Endpoints
+
+## Create Lead
+
+```
+POST /api/leads
+```
+
+Creates a new lead in the system.
+
+### Headers
+
+```
+Content-Type: application/json
+x-api-key: my_secret_key
+```
+
+### Body
+
+```json
+{
+  "name": "John Doe",
+  "phone": "+919876543210",
+  "city": "Hyderabad",
+  "source": "website"
+}
+```
+
+### Example cURL
+
+```bash
+curl -X POST http://localhost:3000/api/leads \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: my_secret_key" \
+  -d '{
+    "name": "John Doe",
+    "phone": "+919876543210",
+    "city": "Hyderabad",
+    "source": "website"
+  }'
+```
+
+---
+
+## Add Lead Note
+
+```
+POST /api/leads/{leadId}/notes
+```
+
+Adds a note or interaction to a lead.
+
+### Headers
+
+```
+Content-Type: application/json
+x-api-key: my_secret_key
+```
+
+### Body
+
+```json
+{
+  "note_text": "Customer requested pricing details"
+}
+```
+
+---
+
+## Update Lead Status
+
+```
+PATCH /api/leads/{leadId}
+```
+
+Updates the status of an existing lead.
+
+### Headers
+
+```
+Content-Type: application/json
+x-api-key: my_secret_key
+```
+
+### Body
+
+```json
+{
+  "status": "contacted"
+}
+```
+
+Possible statuses include:
+
+```
+new
+contacted
+qualified
+lost
+converted
+```
+
+---
+
+# Database Structure
+
+## leads
+
+| column     | type      |
+| ---------- | --------- |
+| id         | uuid      |
+| name       | text(required, unique)      |
+| phone      | text(required,unique)       |
+| city       | text      |
+| source     | text      |
+| status     | text      |
+| created_at | timestamp |
+
+---
+
+## notes
+
+| column     | type      |
+| ---------- | --------- |
+| id         | uuid      |
+| lead_id    | uuid      |
+| note_text  | text      |
+| created_at | timestamp |
+
+Relationship:
+
+```
+notes.lead_id → leads.id
+```
+
+---
+
+# Development Notes
+
+- Dashboard interactions use **Server Actions**
+- External integrations should use `/api` endpoints
+- Supabase handles persistence and authentication
+- Row Level Security protects database access
+
+---
+
+# Example Integration
+
+A website form can push leads directly:
+
+```javascript
+await fetch("https://yourdomain.com/api/leads", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "x-api-key": "my_secret_key"
+  },
+  body: JSON.stringify({
+    name: "Jane Doe",
+    phone: "+919999999999",
+    city: "Bangalore",
+    source: "landing_page"
+  })
+})
+```
+
+---
+
+# Future Improvements
+
+- Lead assignment to sales agents
+- Activity reminders
+- WhatsApp integration
+- Analytics dashboard
+- Search and filtering
+- Webhook integrations
