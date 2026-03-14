@@ -32,7 +32,7 @@ A lightweight CRM built with Next.js and Supabase for managing leads, tracking t
 ## 1. Clone the repository
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/iiharsha/leadflow-app leads-management-app
 cd leads-management-app
 ````
 
